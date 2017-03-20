@@ -8,6 +8,16 @@ namespace KitchenSink
         {
             Db.Transact(() =>
             {
+                // For Sortable list page
+                if (Db.SQL("SELECT p FROM KitchenSink.Person p").First == null)
+                {
+                    new Person { Name = "Bilbo Baggins" };
+                    new Person { Name = "Luke Skywalker" };
+                    new Person { Name = "Harvey Specter" };
+                    new Person { Name = "Sheldon Cooper" };
+                    new Person { Name = "James Howlett" };
+                }
+
                 // For Dropdown page
                 if (Db.SQL("SELECT p FROM KitchenSink.SoftwareProduct p").First == null)
                 {

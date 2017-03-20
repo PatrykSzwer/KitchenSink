@@ -1,6 +1,23 @@
 ﻿<template>
     <template is="dom-bind">
         <h2>Sortable list</h2>
-
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Up</th>
+                <th>Name</th>
+                <th>Down</th>
+            </tr>
+            </thead>
+            <tbody>
+            <template is="dom-repeat" items="{{model.Persons}}">
+                <tr>
+                    <td>Placeholder</td>
+                    <td>{{item.Name}}</td>
+                    <td>Placeholder</td>
+                </tr>
+            </template>
+            </tbody>
+        </table>
     </template>
 </template>

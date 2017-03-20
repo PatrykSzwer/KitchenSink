@@ -1,3 +1,8 @@
 {
-  "Html": "/KitchenSink/SortableListPage.html"
+  "Html": "/KitchenSink/SortableListPage.html",
+    "Persons": [
+    {
+      "Name": "" 
+    }
+  ]
 }

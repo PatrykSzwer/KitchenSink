@@ -135,6 +135,8 @@ namespace KitchenSink
             Handle.GET("/KitchenSink/partial/datepicker", () => new DatepickerPage());
             Handle.GET("/KitchenSink/datepicker", () => WrapPage<DatepickerPage>("/KitchenSink/partial/datepicker"));
 
+            Handle.GET("/KitchenSink/partial/sortablelist", () => new SortableListPage());
+            Handle.GET("/KitchenSink/sortablelist", () => WrapPage<SortableListPage>("/KitchenSink/partial/sortablelist"));
             Handle.GET("/KitchenSink/partial/fileupload", () => new FileUploadPage());
             Handle.GET("/KitchenSink/fileupload", () => WrapPage<FileUploadPage>("/KitchenSink/partial/fileupload"));
 

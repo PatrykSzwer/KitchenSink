@@ -22,18 +22,18 @@ namespace KitchenSink
         [SortableListPage_json.Persons]
         public partial class FoundPlacesItem
         {
-            void Handle(Input.OrdNumber orderNumber)
+            void Handle(Input.OrdNumber ordNumber)
             {
-                var maxOrderValue = Db.SQL($"SELECT p FROM KitchenSink.Person p").Count();
-                if (orderNumber.Value > maxOrderValue || orderNumber.Value < 1)
+                var maxOrdValue = Db.SQL($"SELECT p FROM KitchenSink.Person p").Count();
+                if (ordNumber.Value > maxOrdValue || ordNumber.Value < 1)
                 {
                     return;
                 }
 
-                var personWithOldOrdValue = Db.SQL<Person>($"SELECT p FROM KitchenSink.Person p WHERE OrdNumber =?", orderNumber.Value).First;
-                var personToSetNewValue = Db.SQL<Person>($"SELECT p FROM KitchenSink.Person p WHERE OrdNumber =?", orderNumber.OldValue).First;
-                personWithOldOrdValue.OrdNumber = (int)orderNumber.OldValue;
-                personToSetNewValue.OrdNumber = (int)orderNumber.Value;
+                var personWithOldOrdValue = Db.SQL<Person>($"SELECT p FROM KitchenSink.Person p WHERE OrdNumber =?", ordNumber.Value).First;
+                var personToSetNewOrdValue = Db.SQL<Person>($"SELECT p FROM KitchenSink.Person p WHERE OrdNumber =?", ordNumber.OldValue).First;
+                personWithOldOrdValue.OrdNumber = (int)ordNumber.OldValue;
+                personToSetNewOrdValue.OrdNumber = (int)ordNumber.Value;
 
                 Transaction.Commit();
             }

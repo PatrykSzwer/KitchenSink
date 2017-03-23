@@ -16,6 +16,9 @@ namespace KitchenSink
                     new Person { Name = "Harvey Specter", OrdNumber = 3 };
                     new Person { Name = "Sheldon Cooper", OrdNumber = 4 };
                     new Person { Name = "James Howlett", OrdNumber = 5 };
+                    new Person { Name = "Kegan Rodhe", OrdNumber = 6 };
+                    new Person { Name = "Illidan Stormrage", OrdNumber = 7 };
+                    new Person { Name = "Ragnar Lothbrok", OrdNumber = 8 };
                 }
 
                 // For Dropdown page

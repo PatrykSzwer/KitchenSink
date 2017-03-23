@@ -140,7 +140,8 @@ namespace KitchenSink
                 return Db.Scope(() =>
                 {
                     var sortableListPage = new SortableListPage();
-                    sortableListPage.Persons = Db.SQL<Person>("SELECT p FROM Person p ORDER BY OrdNumber");
+                    sortableListPage.SetPersonsData();
+
                     return sortableListPage;
                 });
             });

@@ -40,7 +40,7 @@
 
             template.isLastRow = function (ordNumber, personsArray) {
                 var maxOrdNumber = personsArray.length;
-                if (ordNumber === maxOrdNumber) {
+                if (parseInt(ordNumber) === maxOrdNumber) {
                     return true;
                 }
 
@@ -60,6 +60,7 @@
                 parent.insertBefore(row, upperRow);
             } else {
                 caller.value++;
+                caller.src = '/KitchenSink/images/thumbsDown.svg'; // Fix on unchanging icon on last row after swap
                 parent.insertBefore(lowerRow, row);
             }
         }

@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Starcounter;
+using System;
 using System.Linq;
-using Starcounter;
 
 namespace KitchenSink
 {
@@ -135,8 +135,18 @@ namespace KitchenSink
             Handle.GET("/KitchenSink/partial/datepicker", () => new DatepickerPage());
             Handle.GET("/KitchenSink/datepicker", () => WrapPage<DatepickerPage>("/KitchenSink/partial/datepicker"));
 
-            Handle.GET("/KitchenSink/partial/sortablelist", () => new SortableListPage());
+            Handle.GET("/KitchenSink/partial/sortablelist", () =>
+            {
+                return Db.Scope(() =>
+                {
+                    var sortableListPage = new SortableListPage();
+                    sortableListPage.Persons = Db.SQL<Person>("SELECT p FROM Person p ORDER BY OrdNumber");
+                    return sortableListPage;
+                });
+            });
+
             Handle.GET("/KitchenSink/sortablelist", () => WrapPage<SortableListPage>("/KitchenSink/partial/sortablelist"));
+
             Handle.GET("/KitchenSink/partial/fileupload", () => new FileUploadPage());
             Handle.GET("/KitchenSink/fileupload", () => WrapPage<FileUploadPage>("/KitchenSink/partial/fileupload"));
 
@@ -264,7 +274,7 @@ namespace KitchenSink
 
         private static Json WrapPage<T>(string partialPath) where T : Json
         {
-            var master = (MasterPage) Self.GET("/KitchenSink/master");
+            var master = (MasterPage)Self.GET("/KitchenSink/master");
             var nav = master.CurrentPage as NavPage;
 
             if (nav.CurrentPage != null && nav.CurrentPage.GetType().Equals(typeof(T)))

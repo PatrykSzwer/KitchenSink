@@ -11,11 +11,11 @@ namespace KitchenSink
                 // For Sortable list page
                 if (Db.SQL("SELECT p FROM KitchenSink.Person p").First == null)
                 {
-                    new Person { Name = "Bilbo Baggins" };
-                    new Person { Name = "Luke Skywalker" };
-                    new Person { Name = "Harvey Specter" };
-                    new Person { Name = "Sheldon Cooper" };
-                    new Person { Name = "James Howlett" };
+                    new Person { Name = "Bilbo Baggins", OrdNumber = 1 };
+                    new Person { Name = "Luke Skywalker", OrdNumber = 2 };
+                    new Person { Name = "Harvey Specter", OrdNumber = 3 };
+                    new Person { Name = "Sheldon Cooper", OrdNumber = 4 };
+                    new Person { Name = "James Howlett", OrdNumber = 5 };
                 }
 
                 // For Dropdown page

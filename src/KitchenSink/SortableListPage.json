@@ -1,8 +1,9 @@
 {
   "Html": "/KitchenSink/SortableListPage.html",
-    "Persons": [
+  "Persons": [
     {
-      "Name": "" 
+      "Name": "",
+      "OrdNumber$": 0
     }
   ]
 }

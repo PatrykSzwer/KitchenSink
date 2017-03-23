@@ -1,23 +1,58 @@
-﻿<template>
+﻿<link rel="import" href="/sys/polymer/polymer.html">
+
+<template>
     <template is="dom-bind">
         <h2>Sortable list</h2>
-        <table class="table table-striped">
+        <table id="myTable" class="table table-striped table-hover">
             <thead>
             <tr>
-                <th>Up</th>
                 <th>Name</th>
-                <th>Down</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
-            <template is="dom-repeat" items="{{model.Persons}}">
+            <template is="dom-repeat" items="{{model.Persons}}" as="person">
                 <tr>
-                    <td>Placeholder</td>
-                    <td>{{item.Name}}</td>
-                    <td>Placeholder</td>
+                    <td>{{person.Name}}</td>
+                    <td>
+                        <input type="image" src="/KitchenSink/images/thumbsUp.svg" disabled$="{{isFirstRow(person.OrdNumber$)}}" value="{{person.OrdNumber$::click}}" width="20" height="20" onmousedown="--this.value" onclick="refresh()" onmouseover="this.src='/KitchenSink/images/thumbsUpSelected.svg';" onmouseout="this.src='/KitchenSink/images/thumbsUp.svg';"/>
+                        <input type="image" src="/KitchenSink/images/thumbsDown.svg" disabled$="{{isLastRow(person.OrdNumber$, model.Persons)}}" value="{{person.OrdNumber$::click}}" onmousedown="++this.value" onclick="refresh()" width="20" height="20" onmouseover="this.src='/KitchenSink/images/thumbsDownSelected.svg';" onmouseout="this.src='/KitchenSink/images/thumbsDown.svg';"/>
+                    </td>
                 </tr>
             </template>
             </tbody>
         </table>
     </template>
+    <script>
+        (function () {
+            var script = document._currentScript || document.currentScript;
+            var template = script.previousElementSibling;
+
+            template.isFirstRow = function (ordNumber) {
+                if (ordNumber === 1) {
+                    return true;
+                }
+
+                return false;
+            };
+
+            template.isLastRow = function (ordNumber, personsArray) {
+                var maxOrdNumber = personsArray.length;
+                if (ordNumber === maxOrdNumber) {
+                    return true;
+                }
+
+                return false;
+            };
+        })();
+
+    </script>
 </template>
+
+<!--TODO: Change this on Polymer sort method-->
+<script> 
+    function refresh() {
+        location.reload();
+    }
+
+</script>

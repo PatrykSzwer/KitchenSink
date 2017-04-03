@@ -1,6 +1,7 @@
 ﻿<link rel="import" href="/sys/polymer/polymer.html">
 <link rel="import" href="/sys/juicy-draggable/juicy-draggable.html">
 
+
 <template>
     <template is="dom-bind">
         <h2>Sortable list</h2>
@@ -13,17 +14,23 @@
             </thead>
             <tbody>
             <template is="dom-repeat" items="{{model.Persons}}" as="person">
-                    <tr class="personsTableRow">
+                   <juicy-draggable>
+                    <tr>                 
                         <td>{{person.Name}}</td>
                         <td>
                             <input type="image" src="/KitchenSink/images/thumbsUp.svg" disabled$="{{isFirstRow(person.OrdNumber$)}}" value="{{person.OrdNumber$::click}}" onclick="moveRow(this, true)" onmouseover="this.src = '/KitchenSink/images/thumbsUpSelected.svg';" onmouseout="this.src = '/KitchenSink/images/thumbsUp.svg';"/>
                             <input type="image" src="/KitchenSink/images/thumbsDown.svg" disabled$="{{isLastRow(person.OrdNumber$, model.Persons)}}" value="{{person.OrdNumber$::click}}" onclick="moveRow(this, false)" onmouseover="this.src = '/KitchenSink/images/thumbsDownSelected.svg';" onmouseout="this.src = '/KitchenSink/images/thumbsDown.svg';"/>
                         </td>
                     </tr>
+                </juicy-draggable>
             </template>
             </tbody>
         </table>
+        <juicy-draggable>
+            <div>Drag and drop me</div>
+        </juicy-draggable>
     </template>
+
     <script>
         (function () {
             var script = document._currentScript || document.currentScript;

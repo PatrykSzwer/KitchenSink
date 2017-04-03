@@ -16,14 +16,14 @@
             <template is="dom-repeat" items="{{model.Persons}}" as="person">
                 <juicy-draggable>
                     <div class="drag">
-                    <tr>
-                        <td>{{person.Name}}</td>
-                        <td>
-                            <input type="image" src="/KitchenSink/images/thumbsUp.svg" disabled$="{{isFirstRow(person.OrdNumber$)}}" value="{{person.OrdNumber$::click}}" onclick="moveRow(this, true)" onmouseover="this.src = '/KitchenSink/images/thumbsUpSelected.svg';" onmouseout="this.src = '/KitchenSink/images/thumbsUp.svg';"/>
-                            <input type="image" src="/KitchenSink/images/thumbsDown.svg" disabled$="{{isLastRow(person.OrdNumber$, model.Persons)}}" value="{{person.OrdNumber$::click}}" onclick="moveRow(this, false)" onmouseover="this.src = '/KitchenSink/images/thumbsDownSelected.svg';" onmouseout="this.src = '/KitchenSink/images/thumbsDown.svg';"/>
-                        </td>
-                    </tr>
-                        </div>
+                        <tr>
+                            <td>{{person.Name}}</td>
+                            <td>
+                                <input type="image" src="/KitchenSink/images/thumbsUp.svg" disabled$="{{isFirstRow(person.OrdNumber$)}}" value="{{person.OrdNumber$::click}}" onclick="moveRow(this, true)" onmouseover="this.src = '/KitchenSink/images/thumbsUpSelected.svg';" onmouseout="this.src = '/KitchenSink/images/thumbsUp.svg';"/>
+                                <input type="image" src="/KitchenSink/images/thumbsDown.svg" disabled$="{{isLastRow(person.OrdNumber$, model.Persons)}}" value="{{person.OrdNumber$::click}}" onclick="moveRow(this, false)" onmouseover="this.src = '/KitchenSink/images/thumbsDownSelected.svg';" onmouseout="this.src = '/KitchenSink/images/thumbsDown.svg';"/>
+                            </td>
+                        </tr>
+                    </div>
                 </juicy-draggable>
             </template>
             </tbody>

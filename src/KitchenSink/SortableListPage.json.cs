@@ -40,6 +40,8 @@ namespace KitchenSink
                 personToSetNewOrdValue.OrdNumber = (int)ordNumber.Value;
 
                 Transaction.Commit();
+
+                this.Parent.Data = Db.SQL("SELECT p FROM KitchenSink.Person p ORDER BY OrdNumber");
             }
         }
     }

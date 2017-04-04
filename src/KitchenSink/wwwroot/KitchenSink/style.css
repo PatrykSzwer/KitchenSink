@@ -210,3 +210,54 @@
     color: red;
     font-size: 8pt;
 }
+
+#drag {
+    overflow: visible;
+    padding-left: 420px;
+    min-height: 60px;
+}
+
+.drag,
+.drag-helper {
+    width: 200px;
+    line-height: 20px;
+    float: left;
+    margin: 0px 10px 10px 0px;
+    border: 1px dashed #333333;
+    text-align: center;
+    cursor: move;
+}
+
+#drop {
+    clear: both;
+    border: 1px  #333333;
+    padding: 0px;
+}
+
+#drop p {
+    border-bottom: 1px solid #333333;
+    padding: 10px;
+    margin: 0px;
+}
+
+#drop div.drop {
+    min-height: 100px;
+    padding: 10px;
+}
+
+#drop .drag {
+    cursor: default;
+}
+
+.drag-helper {
+    display: none;
+}
+
+.drag-helper.dragging {
+    display: block;
+}
+
+.drag-hover {
+    background-color: aqua;
+}
+

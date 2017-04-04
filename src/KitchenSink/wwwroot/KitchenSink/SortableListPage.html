@@ -22,8 +22,8 @@
 
                     </td>
                     <td>
-                        <input type="image" src="/KitchenSink/images/thumbsUp.svg" disabled$="{{isFirstRow(person.OrdNumber$)}}" value="{{person.OrdNumber$::click}}" onclick="moveRow(this, true)" onmouseover="this.src = '/KitchenSink/images/thumbsUpSelected.svg';" onmouseout="this.src = '/KitchenSink/images/thumbsUp.svg';"/>
-                        <input type="image" src="/KitchenSink/images/thumbsDown.svg" disabled$="{{isLastRow(person.OrdNumber$, model.Persons)}}" value="{{person.OrdNumber$::click}}" onclick="moveRow(this, false)" onmouseover="this.src = '/KitchenSink/images/thumbsDownSelected.svg';" onmouseout="this.src = '/KitchenSink/images/thumbsDown.svg';"/>
+                        <input type="image" src="/KitchenSink/images/thumbsUp.svg" disabled$="{{isFirstRow(person.OrdNumber$)}}" value="{{person.OrdNumber$::click}}" onclick="--this.value" onmouseover="this.src = '/KitchenSink/images/thumbsUpSelected.svg';" onmouseout="this.src = '/KitchenSink/images/thumbsUp.svg';"/>
+                        <input type="image" src="/KitchenSink/images/thumbsDown.svg" disabled$="{{isLastRow(person.OrdNumber$, model.Persons)}}" value="{{person.OrdNumber$::click}}" onclick="++this.value" onmouseover="this.src = '/KitchenSink/images/thumbsDownSelected.svg';" onmouseout="this.src = '/KitchenSink/images/thumbsDown.svg';"/>
                     </td>
                 </tr>
             </template>
@@ -44,33 +44,18 @@
                 var drag = event.detail.dragElement.parentNode.parentNode.parentNode; // Get whole <td> element
                 var drop = event.detail.dropElement;
 
-                if (drag === drop) {
-                    return;
-                }
+                var dragPerson = template.model.Persons[drag.sectionRowIndex];
+                var dropPerson = template.model.Persons[drop.sectionRowIndex];
 
-                var nextSiblingToDrag = drag.nextElementSibling;
-
-                if (nextSiblingToDrag === drop) {
-                    moveRow(drop.children[1].children[0], true); // .children[1].children[0] gets thumbsUp input element
-                    return;
-                }
-
-                // switch order values
-                var tmp = drop.children[1].children[0].value;
-                drop.children[1].children[0].value = drag.children[1].children[0].value;
-                drag.children[1].children[0].value = tmp;
-
-                drop.parentNode.insertBefore(drag, drop);
-                drop.parentNode.removeChild(drop);
-                drag.parentNode.insertBefore(drop, nextSiblingToDrag);
+                template.set("model.Persons." + dropPerson.OrdNumber$ + ".OrdNumber$", dragPerson.OrdNumber$);
             };
 
             template.isFirstRow = function (ordNumber) {
                 if (parseInt(ordNumber) === 1) {
                     return true;
-                } else {
-                    return false;
                 }
+
+                return false;
             };
 
             template.isLastRow = function (ordNumber, personsArray) {
@@ -82,22 +67,5 @@
                 return false;
             };
         })();
-
-        function moveRow(caller, moveUp) {
-            var row = caller.parentNode.parentNode,
-                upperRow = row.previousElementSibling,
-                lowerRow = row.nextElementSibling,
-                parent = row.parentNode;
-
-            if (moveUp) {
-                caller.value--;
-                caller.src = '/KitchenSink/images/thumbsUp.svg'; // Fix on unchanging icon on first row after swap
-                parent.insertBefore(row, upperRow);
-            } else {
-                caller.value++;
-                caller.src = '/KitchenSink/images/thumbsDown.svg'; // Fix on unchanging icon on last row after swap
-                parent.insertBefore(lowerRow, row);
-            }
-        }
     </script>
 </template>

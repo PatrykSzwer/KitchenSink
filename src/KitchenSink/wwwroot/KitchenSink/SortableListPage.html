@@ -14,17 +14,18 @@
             </thead>
             <tbody id="drop">
             <template is="dom-repeat" items="{{model.Persons}}" as="person">
-                <juicy-draggable>
-                    <div class="drag">
-                        <tr>
-                            <td>{{person.Name}}</td>
-                            <td>
-                                <input type="image" src="/KitchenSink/images/thumbsUp.svg" disabled$="{{isFirstRow(person.OrdNumber$)}}" value="{{person.OrdNumber$::click}}" onclick="moveRow(this, true)" onmouseover="this.src = '/KitchenSink/images/thumbsUpSelected.svg';" onmouseout="this.src = '/KitchenSink/images/thumbsUp.svg';"/>
-                                <input type="image" src="/KitchenSink/images/thumbsDown.svg" disabled$="{{isLastRow(person.OrdNumber$, model.Persons)}}" value="{{person.OrdNumber$::click}}" onclick="moveRow(this, false)" onmouseover="this.src = '/KitchenSink/images/thumbsDownSelected.svg';" onmouseout="this.src = '/KitchenSink/images/thumbsDown.svg';"/>
-                            </td>
-                        </tr>
-                    </div>
-                </juicy-draggable>
+                <tr>
+                    <td>
+                        <juicy-draggable position="static" dropselector="#drop" on-juicy-draggable-stop="itemDropped">
+                            <div>{{person.Name}}</div>
+                        </juicy-draggable>
+
+                    </td>
+                    <td>
+                        <input type="image" src="/KitchenSink/images/thumbsUp.svg" disabled$="{{isFirstRow(person.OrdNumber$)}}" value="{{person.OrdNumber$::click}}" onclick="moveRow(this, true)" onmouseover="this.src = '/KitchenSink/images/thumbsUpSelected.svg';" onmouseout="this.src = '/KitchenSink/images/thumbsUp.svg';"/>
+                        <input type="image" src="/KitchenSink/images/thumbsDown.svg" disabled$="{{isLastRow(person.OrdNumber$, model.Persons)}}" value="{{person.OrdNumber$::click}}" onclick="moveRow(this, false)" onmouseover="this.src = '/KitchenSink/images/thumbsDownSelected.svg';" onmouseout="this.src = '/KitchenSink/images/thumbsDown.svg';"/>
+                    </td>
+                </tr>
             </template>
             </tbody>
         </table>
@@ -34,6 +35,27 @@
         (function () {
             var script = document._currentScript || document.currentScript;
             var template = script.previousElementSibling;
+
+            template.itemDropped = function (event) {
+                if (!event.detail.dropElement) {
+                    return;
+                }
+
+                var target = event.currentTarget;
+                var drag = event.detail.dragElement;
+                var drop = event.detail.dropElement;
+
+                if (target.position == "static") {
+                    var origin = drag.nextElementSibling;
+
+                    drop.appendChild(origin);
+                    drag.parentNode.removeChild(drag);
+                } else {
+                    drop.appendChild(drag);
+                    drag.style.position = "";
+                    target.setAttribute("disabled", "disabled");
+                }
+            };
 
             template.isFirstRow = function (ordNumber) {
                 if (parseInt(ordNumber) === 1) {

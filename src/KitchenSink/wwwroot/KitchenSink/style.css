@@ -220,7 +220,7 @@
 .drag,
 .drag-helper {
     width: 200px;
-    line-height: 50px;
+    line-height: 20px;
     float: left;
     margin: 0px 10px 10px 0px;
     border: 1px dashed #333333;
@@ -230,7 +230,7 @@
 
 #drop {
     clear: both;
-    border: 1px solid #333333;
+    border: 1px  #333333;
     padding: 0px;
 }
 
@@ -261,10 +261,3 @@
     background-color: #eeffc5;
 }
 
-juicy-draggable.fixed .drag {
-    left: 10px;
-}
-
-juicy-draggable.fixed-drop .drag {
-    left: 220px;
-}

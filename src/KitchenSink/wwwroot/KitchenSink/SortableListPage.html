@@ -47,7 +47,7 @@
                 var dragPerson = template.model.Persons[drag.sectionRowIndex];
                 var dropPerson = template.model.Persons[drop.sectionRowIndex];
 
-                template.set("model.Persons." + dropPerson.OrdNumber$ + ".OrdNumber$", dragPerson.OrdNumber$);
+                template.set("model.Persons." + (dropPerson.OrdNumber$ - 1) + ".OrdNumber$", dragPerson.OrdNumber$);
             };
 
             template.isFirstRow = function (ordNumber) {

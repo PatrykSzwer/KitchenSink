@@ -5,19 +5,19 @@
 <template>
     <template is="dom-bind">
         <h2>Sortable list</h2>
-        <table id="myTable" class="table table-striped table-hover">
+        <table id="myTable" class="table  table-hover">
             <thead>
             <tr>
                 <th>Name</th>
                 <th></th>
             </tr>
             </thead>
-            <tbody id="drop">
+            <tbody>
             <template is="dom-repeat" items="{{model.Persons}}" as="person">
-                <tr>
+                <tr id="drop">
                     <td>
                         <juicy-draggable position="static" dropselector="#drop" on-juicy-draggable-stop="itemDropped">
-                            <div>{{person.Name}}</div>
+                            <div><img src="/KitchenSink/images/drag-icon.svg"/>{{person.Name}}</div>
                         </juicy-draggable>
 
                     </td>
@@ -41,20 +41,28 @@
                     return;
                 }
 
-                var target = event.currentTarget;
-                var drag = event.detail.dragElement;
+                var drag = event.detail.dragElement.parentNode.parentNode.parentNode; // Get whole <td> element
                 var drop = event.detail.dropElement;
 
-                if (target.position == "static") {
-                    var origin = drag.nextElementSibling;
-
-                    drop.appendChild(origin);
-                    drag.parentNode.removeChild(drag);
-                } else {
-                    drop.appendChild(drag);
-                    drag.style.position = "";
-                    target.setAttribute("disabled", "disabled");
+                if (drag === drop) {
+                    return;
                 }
+
+                var nextSiblingToDrag = drag.nextElementSibling;
+
+                if (nextSiblingToDrag === drop) {
+                    moveRow(drop.children[1].children[0], true); // .children[1].children[0] gets thumbsUp input element
+                    return;
+                }
+
+                // switch order values
+                var tmp = drop.children[1].children[0].value;
+                drop.children[1].children[0].value = drag.children[1].children[0].value;
+                drag.children[1].children[0].value = tmp;
+
+                drop.parentNode.insertBefore(drag, drop);
+                drop.parentNode.removeChild(drop);
+                drag.parentNode.insertBefore(drop, nextSiblingToDrag);
             };
 
             template.isFirstRow = function (ordNumber) {
@@ -63,7 +71,6 @@
                 } else {
                     return false;
                 }
-
             };
 
             template.isLastRow = function (ordNumber, personsArray) {
